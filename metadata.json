@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Khám Phá TP. Hồ Chí Minh",
+  "description": "Hành trình di sản \u0026 văn hóa học đường - Cổng học liệu số Giáo dục Địa phương TP.HCM THPT",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

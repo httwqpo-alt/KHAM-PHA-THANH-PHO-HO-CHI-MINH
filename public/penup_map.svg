@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 70 800 770" width="100%" height="100%">
+  <!-- Bình Dương (Top - Soft Gold) -->
+  <path
+    d="M 140,110 C 145,95 165,95 185,120 C 195,130 205,115 215,102 C 230,112 250,118 280,105 C 300,92 330,95 345,118 C 355,105 370,95 385,102 C 395,120 405,142 420,155 C 445,165 470,180 472,205 C 472,230 455,245 440,255 C 448,268 462,280 458,295 C 450,312 435,325 442,345 C 448,368 450,395 435,418 C 415,442 385,455 360,460 C 340,465 325,468 315,470 C 275,452 230,432 180,410 C 150,395 128,382 115,372 C 95,340 75,315 58,285 C 48,265 62,242 75,232 C 62,215 62,192 72,175 C 85,152 110,135 140,110 Z"
+    fill="#FEF08A"
+    stroke="#18181b"
+    stroke-width="5.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <text x="245" y="260" text-anchor="middle" fill="#18181b" font-size="20" font-family="Plus Jakarta Sans, sans-serif" font-weight="800">
+    Bình Dương
+  </text>
+
+  <!-- TP. Hồ Chí Minh (Middle - Soft Lavender) -->
+  <path
+    d="M 115,372 C 128,382 150,395 180,410 C 230,432 275,452 315,470 C 345,482 375,492 395,518 C 405,535 400,560 388,575 C 370,595 348,605 352,625 C 358,650 375,670 400,685 C 420,695 435,700 442,710 C 445,725 448,742 445,750 C 438,775 422,795 390,810 C 355,815 330,795 320,770 C 310,740 312,710 305,695 C 290,685 270,682 250,675 C 220,665 195,650 170,635 C 145,622 120,605 122,580 C 125,550 115,525 95,495 C 75,465 48,450 45,432 C 45,415 75,395 115,372 Z"
+    fill="#E9D5FF"
+    stroke="#18181b"
+    stroke-width="5.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <text x="235" y="535" text-anchor="middle" fill="#18181b" font-size="20" font-family="Plus Jakarta Sans, sans-serif" font-weight="800">
+    TP. Hồ Chí Minh
+  </text>
+
+  <!-- Bà Rịa - Vũng Tàu (Bottom - Soft Rose) -->
+  <path
+    d="M 442,710 C 452,680 480,652 510,630 C 535,612 565,618 595,620 C 625,620 655,605 678,615 C 705,630 725,655 732,685 C 738,715 728,740 715,752 C 685,765 650,768 620,770 C 585,772 555,780 535,800 C 515,815 490,795 480,780 C 465,765 450,755 445,750 C 448,742 445,725 442,710 Z"
+    fill="#FECDD3"
+    stroke="#18181b"
+    stroke-width="5.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <text x="590" y="695" text-anchor="middle" fill="#18181b" font-size="18" font-family="Plus Jakarta Sans, sans-serif" font-weight="800">
+    Bà Rịa - Vũng Tàu
+  </text>
+</svg>
