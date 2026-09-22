@@ -20,6 +20,8 @@ export interface TopicItem {
   destination: string;
   status: 'active' | 'locked' | 'completed';
   period: string;
+  videoUrl?: string;
+  videoTitle?: string;
 }
 
 export interface RegionDetail {

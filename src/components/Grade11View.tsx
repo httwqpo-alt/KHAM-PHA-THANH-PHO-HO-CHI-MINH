@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { REGIONAL_DATA, MINI_QUIZ_GRADE_11, AUTHORS_DATA, ASSETS } from '../data/mockData';
+import React, { useState, useEffect } from 'react';
+import { MINI_QUIZ_GRADE_11, AUTHORS_DATA, ASSETS, GRADE_11_TOPICS } from '../data/mockData';
 import { AuthorProfile } from '../types';
+import { Grade11Topic2Content } from './Grade11Topic2Content';
+import { TopicLessonGenericContent } from './TopicLessonGenericContent';
+import { BilingualHandbookViewer } from './BilingualHandbookViewer';
 import { 
   BookOpen, 
   CheckCircle2, 
   Download, 
-  Lock, 
   ArrowRight, 
   Heart, 
   Lightbulb, 
@@ -18,10 +20,17 @@ import {
   Clock,
   MapPin,
   Check,
-  BookmarkCheck
+  BookmarkCheck,
+  Play,
+  ExternalLink,
+  Sparkles,
+  Ship,
+  Languages
 } from 'lucide-react';
 
 interface Grade11ViewProps {
+  activeTopicId?: string;
+  onSelectTopicId?: (topicId: string) => void;
   onAddPoints: (points: number) => void;
   onSaveNote: (topic: string, content: string, email: string) => void;
   onShowToast: (title: string, message: string) => void;
@@ -31,6 +40,8 @@ interface Grade11ViewProps {
 }
 
 export const Grade11View: React.FC<Grade11ViewProps> = ({
+  activeTopicId = 'topic-11-01',
+  onSelectTopicId,
   onAddPoints,
   onSaveNote,
   onShowToast,
@@ -38,8 +49,23 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
   userPoints,
   userEmail
 }) => {
-  // Region Selection for Section 2
-  const [selectedRegionId, setSelectedRegionId] = useState<number>(1);
+  // Current active topic ID (topic-11-01 or topic-11-02, etc.)
+  const [selectedTopicId, setSelectedTopicId] = useState<string>(activeTopicId);
+  const activeTopic = GRADE_11_TOPICS.find(t => t.id === selectedTopicId) || GRADE_11_TOPICS[0];
+
+  useEffect(() => {
+    if (activeTopicId) {
+      setSelectedTopicId(activeTopicId);
+    }
+  }, [activeTopicId]);
+
+  const handleSelectTopic = (id: string) => {
+    setSelectedTopicId(id);
+    if (onSelectTopicId) {
+      onSelectTopicId(id);
+    }
+    setActiveLessonTab(1);
+  };
 
   // Lesson Tabs (1: Timeline, 2: Authors, 3: Historic Space, 4: Mini Quiz & Notebook)
   const [activeLessonTab, setActiveLessonTab] = useState<number>(1);
@@ -55,8 +81,6 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
   const [notebookEmail, setNotebookEmail] = useState<string>(userEmail || '');
   const [notebookNote, setNotebookNote] = useState<string>('');
   const [noteSavedMessage, setNoteSavedMessage] = useState<string | null>(null);
-
-  const regionData = REGIONAL_DATA[selectedRegionId] || REGIONAL_DATA[1];
 
   const handleToggleCompleted = () => {
     const nextState = !isCompleted;
@@ -146,7 +170,7 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
 
             <div className="pt-1 flex items-center gap-2 text-[#4b444e] font-['Be_Vietnam_Pro',sans-serif] text-xs">
               <span className="w-2 h-2 rounded-full bg-[#fea619] animate-ping"></span>
-              <span>Chủ đề đang học: <strong className="text-[#1e1926]">Văn học TP.HCM trước 1975</strong></span>
+              <span>Chủ đề đang học: <strong className="text-[#1e1926]">{selectedTopicId === 'topic-11-02' ? 'Chủ đề 2: Phát triển du lịch ở TPHCM' : 'Chủ đề 1: Văn học TP.HCM trước 1975'}</strong></span>
             </div>
           </div>
         </div>
@@ -164,100 +188,70 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
             </h2>
           </div>
           <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs sm:text-sm text-[#4b444e] max-w-md leading-relaxed">
-            Định hình toàn diện từ tiếp nhận văn chương địa phương đến bồi đắp căn tính tự hào và phẩm chất công dân trẻ thành phố.
+            Chọn chủ đề để xem định hướng năng lực, phẩm chất và khám phá toàn diện nội dung học tập theo chuẩn GDPT 2018.
           </p>
         </div>
 
-        {/* 4 Thematic Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Card 01 */}
-          <div className="bg-white p-5 rounded-3xl border border-[#deb7fe] shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative overflow-hidden">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#f0e49c] text-[#201c00] flex items-center justify-center font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-lg shadow-sm group-hover:scale-105 transition-transform">
-                01
-              </div>
-              <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#f9f0ff] text-[#704f8d] font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-bold">
-                {isCompleted ? 'Đã học xong' : 'Đang học'}
-              </span>
-              <h3 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-sm text-[#1e1926]">
-                Văn học TP.HCM trước năm 1975
-              </h3>
-              <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] leading-relaxed">
-                Báo chí quốc ngữ ban mai, phong trào yêu nước, văn chương đất Sài Gòn – Chợ Lớn.
-              </p>
-            </div>
-            <a 
-              href="#chude1-detail"
-              className="mt-4 pt-3 border-t border-[#eee4f7] flex items-center text-[#704f8d] font-['Plus_Jakarta_Sans',sans-serif] text-xs font-bold gap-1 group-hover:underline"
-            >
-              <span>Chi tiết chủ đề</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
+        {/* Topic Switcher Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+          {GRADE_11_TOPICS.map((t) => {
+            const isCurrent = selectedTopicId === t.id;
+            return (
+              <button
+                key={t.id}
+                onClick={() => handleSelectTopic(t.id)}
+                className={`shrink-0 px-4 py-2 rounded-full text-xs font-['Plus_Jakarta_Sans',sans-serif] font-bold transition-all flex items-center gap-2 cursor-pointer shadow-xs ${
+                  isCurrent
+                    ? 'bg-[#704f8d] text-white shadow-sm ring-2 ring-[#deb7fe]'
+                    : 'bg-white text-[#4b444e] hover:bg-[#f9f0ff] border border-[#eee4f7]'
+                }`}
+              >
+                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-extrabold ${
+                  isCurrent ? 'bg-white text-[#704f8d]' : 'bg-[#eee4f7] text-[#704f8d]'
+                }`}>
+                  {t.code}
+                </span>
+                <span className="whitespace-nowrap">{t.title}</span>
+                {t.status === 'active' && (
+                  <span className={`w-2 h-2 rounded-full ${isCurrent ? 'bg-[#fea619]' : 'bg-emerald-500'}`} />
+                )}
+              </button>
+            );
+          })}
+        </div>
 
-          {/* Card 02 */}
-          <div className="bg-white p-5 rounded-3xl border border-[#e9dff2] shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#f9f0ff] text-[#704f8d] flex items-center justify-center font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-lg shadow-sm group-hover:scale-105 transition-transform">
-                02
+        {/* Thematic Topic Focus Card */}
+        <div className="w-full">
+          <div className="bg-white p-6 sm:p-7 rounded-3xl border border-[#deb7fe] shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 group relative overflow-hidden">
+            <div className="flex items-start sm:items-center gap-4">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#f0e49c] text-[#201c00] flex items-center justify-center font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-lg sm:text-xl shadow-sm shrink-0 group-hover:scale-105 transition-transform">
+                {activeTopic.code.replace(/\D/g, '') || '01'}
               </div>
-              <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#eee4f7] text-[#4b444e] font-['Plus_Jakarta_Sans',sans-serif] text-[11px]">
-                Năm học 2026 - 2027
-              </span>
-              <h3 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-sm text-[#1e1926]">
-                Nghệ thuật sân khấu truyền thống Nam Bộ
-              </h3>
-              <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] leading-relaxed">
-                Nghệ thuật Đờn ca tài tử, Sân khấu Cải lương tuồng cổ và hơi thở nhịp sống Nam Kỳ.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-[#eee4f7] flex items-center text-[#7c747f] font-['Plus_Jakarta_Sans',sans-serif] text-xs gap-1">
-              <span>Sắp mở</span>
-              <Lock className="w-3.5 h-3.5" />
-            </div>
-          </div>
-
-          {/* Card 03 */}
-          <div className="bg-white p-5 rounded-3xl border border-[#e9dff2] shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#f9f0ff] text-[#704f8d] flex items-center justify-center font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-lg shadow-sm group-hover:scale-105 transition-transform">
-                03
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#f9f0ff] text-[#704f8d] font-['Plus_Jakarta_Sans',sans-serif] text-[11px] font-bold">
+                    {isCompleted ? 'Đã học xong' : (activeTopic.period || 'Đang học')}
+                  </span>
+                  <span className="text-xs text-[#7c747f] font-medium font-['Plus_Jakarta_Sans',sans-serif]">
+                    Khối 11 • {activeTopic.duration} • {activeTopic.fieldTrip} • Điểm đến: {activeTopic.destination}
+                  </span>
+                </div>
+                <h3 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base sm:text-lg text-[#1e1926]">
+                  {activeTopic.title}
+                </h3>
+                <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs sm:text-sm text-[#4b444e] leading-relaxed max-w-2xl">
+                  {activeTopic.shortDesc}
+                </p>
               </div>
-              <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#eee4f7] text-[#4b444e] font-['Plus_Jakarta_Sans',sans-serif] text-[11px]">
-                Năm học 2026 - 2027
-              </span>
-              <h3 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-sm text-[#1e1926]">
-                Di sản kiến trúc đô thị & Tôn giáo
-              </h3>
-              <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] leading-relaxed">
-                Dấu ấn phong cách Đông Dương, kiến trúc Chợ Lớn, hệ thống đình – chùa – hội quán.
-              </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-[#eee4f7] flex items-center text-[#7c747f] font-['Plus_Jakarta_Sans',sans-serif] text-xs gap-1">
-              <span>Sắp mở</span>
-              <Lock className="w-3.5 h-3.5" />
-            </div>
-          </div>
-
-          {/* Card 04 */}
-          <div className="bg-white p-5 rounded-3xl border border-[#e9dff2] shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#f9f0ff] text-[#704f8d] flex items-center justify-center font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-lg shadow-sm group-hover:scale-105 transition-transform">
-                04
-              </div>
-              <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#eee4f7] text-[#4b444e] font-['Plus_Jakarta_Sans',sans-serif] text-[11px]">
-                Dự án cuối khóa
-              </span>
-              <h3 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-sm text-[#1e1926]">
-                Không gian làng nghề & Kết nối vùng
-              </h3>
-              <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] leading-relaxed">
-                Trải nghiệm di sản thủ công mỹ nghệ, hành trình sông ngòi liên kết Đông Nam Bộ.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-[#eee4f7] flex items-center text-[#7c747f] font-['Plus_Jakarta_Sans',sans-serif] text-xs gap-1">
-              <span>Sắp mở</span>
-              <Lock className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-3 shrink-0">
+              <a 
+                href="#chude-detail"
+                className="px-6 py-3 rounded-full bg-[#704f8d] hover:bg-[#583975] text-white font-['Plus_Jakarta_Sans',sans-serif] text-xs font-bold gap-2 flex items-center justify-center transition-all shadow-sm group-hover:shadow-md cursor-pointer"
+              >
+                <span>Xem nội dung bài học</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </div>
@@ -272,18 +266,44 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
                   <Heart className="w-5 h-5 fill-[#201c00]" />
                 </div>
                 <h4 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base text-[#1e1926]">
-                  Mục Tiêu Về Phẩm Chất
+                  Mục Tiêu Về Phẩm Chất ({activeTopic.code})
                 </h4>
               </div>
               <ul className="space-y-2.5 text-xs sm:text-sm text-[#4b444e] font-['Be_Vietnam_Pro',sans-serif]">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
-                  <span><strong>Tình yêu quê hương:</strong> Bồi đắp cảm xúc gắn bó ruột thịt với mảnh đất, con người Sài Gòn – Chợ Lớn – Gia Định qua từng thời kỳ lịch sử.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
-                  <span><strong>Lòng tự hào & Trách nhiệm:</strong> Nhận diện giá trị bản sắc địa phương, nâng cao ý thức chủ động giữ gìn di sản tinh thần, cổ vũ sáng tạo nghệ thuật trẻ.</span>
-                </li>
+                {selectedTopicId === 'topic-11-02' ? (
+                  <>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Tự hào vẻ đẹp đô thị & sông nước:</strong> Yêu mến cảnh quan thiên nhiên, kiến trúc di sản và lối sống văn minh, thân thiện của người dân TP.HCM.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Văn hóa ứng xử & Trách nhiệm môi trường:</strong> Nâng cao ý thức giữ gìn vệ sinh nơi công cộng, bảo vệ cảnh quan di sản và quảng bá du lịch xanh.</span>
+                    </li>
+                  </>
+                ) : selectedTopicId === 'topic-11-01' ? (
+                  <>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Tình yêu quê hương:</strong> Bồi đắp cảm xúc gắn bó ruột thịt với mảnh đất, con người Sài Gòn – Chợ Lớn – Gia Định qua từng thời kỳ lịch sử.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Lòng tự hào & Trách nhiệm:</strong> Nhận diện giá trị bản sắc địa phương, nâng cao ý thức chủ động giữ gìn di sản tinh thần, cổ vũ sáng tạo nghệ thuật trẻ.</span>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Lòng tự hào & Tình yêu quê hương:</strong> Bồi đắp cảm xúc gắn bó sâu sắc với lịch sử, con người và sự nghiệp phát triển của TP.HCM qua chuyên đề {activeTopic.title}.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Trách nhiệm công dân trẻ:</strong> Nâng cao ý thức chủ động học tập, rèn luyện phẩm chất kỷ cương, trung thực và xây dựng thành phố văn minh nghĩa tình.</span>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
             <div className="p-3 bg-white rounded-2xl border border-[#eee4f7] text-[11px] font-['Plus_Jakarta_Sans',sans-serif] text-[#4b444e] flex items-center gap-2">
@@ -300,18 +320,44 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
                   <Lightbulb className="w-5 h-5" />
                 </div>
                 <h4 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base text-[#1e1926]">
-                  Mục Tiêu Về Năng Lực
+                  Mục Tiêu Về Năng Lực ({activeTopic.code})
                 </h4>
               </div>
               <ul className="space-y-2.5 text-xs sm:text-sm text-[#4b444e] font-['Be_Vietnam_Pro',sans-serif]">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
-                  <span><strong>Cảm thụ văn chương:</strong> Năng lực phân tích, đánh giá ngôn ngữ bình dân Nam Bộ, phong cách tự sự Nam Kỳ trong các trích đoạn tác phẩm.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
-                  <span><strong>Tư duy không gian văn hóa:</strong> Kỹ năng định vị địa danh, so sánh liên hệ bối cảnh lịch sử xã hội và mạng lưới giao thương vùng trên bản đồ.</span>
-                </li>
+                {selectedTopicId === 'topic-11-02' ? (
+                  <>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Khảo sát & Phân tích điểm đến:</strong> Năng lực định vị các loại hình du lịch tiêu biểu (buýt sông, di sản Chợ Lớn, du lịch sinh thái Cần Giờ, du lịch MICE).</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Sáng tạo & Truyền thông du lịch:</strong> Kỹ năng xây dựng cẩm nang số, quay clip ngắn hoặc thuyết minh giới thiệu nét độc đáo của TP.HCM.</span>
+                    </li>
+                  </>
+                ) : selectedTopicId === 'topic-11-01' ? (
+                  <>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Cảm thụ văn chương:</strong> Năng lực phân tích, đánh giá ngôn ngữ bình dân Nam Bộ, phong cách tự sự Nam Kỳ trong các trích đoạn tác phẩm.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Tư duy không gian văn hóa:</strong> Kỹ năng định vị địa danh, so sánh liên hệ bối cảnh lịch sử xã hội và mạng lưới giao thương vùng trên bản đồ.</span>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Khảo sát & Nhận diện tri thức:</strong> {activeTopic.learningGoal}</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#704f8d] shrink-0 mt-0.5" />
+                      <span><strong>Kỹ năng thực nghiệm & Ứng dụng:</strong> Thu thập thông tin thực tế tại {activeTopic.destination}, giải quyết vấn đề và phát triển tư duy phản biện.</span>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
             <div className="p-3 bg-white rounded-2xl border border-[#eee4f7] text-[11px] font-['Plus_Jakarta_Sans',sans-serif] text-[#4b444e] flex items-center gap-2">
@@ -322,217 +368,19 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
         </div>
       </section>
 
-      {/* 3. PHẦN 2: BẢN ĐỒ TƯƠNG TÁC PHÂN VÙNG VĂN HÓA LIÊN KẾT */}
-      <section className="w-full bg-white py-14 px-4 md:px-6 lg:px-8 border-y border-[#e9dff2]/60">
-        <div className="max-w-7xl mx-auto space-y-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <span className="font-['Plus_Jakarta_Sans',sans-serif] text-xs font-bold uppercase tracking-wider text-[#704f8d] block">
-                Phần 2: Không Gian Trải Nghiệm
-              </span>
-              <h2 className="font-['Plus_Jakarta_Sans',sans-serif] text-2xl sm:text-3xl font-bold text-[#1e1926] mt-1">
-                Bản Đồ Tương Tác Phân Vùng Văn Hóa Liên Kết
-              </h2>
-            </div>
-            <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs sm:text-sm text-[#4b444e] max-w-md leading-relaxed">
-              Khám phá 4 khu vực không gian văn hóa đặc thù. Nhấp vào các phân vùng trên bản đồ để cập nhật danh mục học phần tương ứng.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Interactive Map (7 Cols) */}
-            <div className="lg:col-span-7 bg-[#f9f0ff] rounded-3xl p-5 border border-[#eee4f7] shadow-sm space-y-4">
-              {/* Region Selector Buttons */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {[1, 2, 3, 4].map(id => {
-                  const reg = REGIONAL_DATA[id];
-                  const isCurrent = selectedRegionId === id;
-                  return (
-                    <button
-                      key={id}
-                      onClick={() => setSelectedRegionId(id)}
-                      className={`px-2 py-2 rounded-2xl text-center font-['Plus_Jakarta_Sans',sans-serif] text-xs font-semibold transition-all cursor-pointer ${
-                        isCurrent
-                          ? 'bg-[#704f8d] text-white shadow-sm'
-                          : 'bg-white text-[#4b444e] hover:bg-[#eee4f7]'
-                      }`}
-                    >
-                      Khu vực {id}: {id === 1 ? 'TP.HCM' : id === 2 ? 'BR - VT' : id === 3 ? 'Bình Dương' : 'Vùng Phụ Cận'}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Vector SVG representation */}
-              <div className="relative w-full h-80 sm:h-96 rounded-2xl bg-white border border-[#e9dff2] overflow-hidden flex items-center justify-center p-3">
-                <svg
-                  className="w-full h-full object-contain"
-                  viewBox="0 0 600 400"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Rivers */}
-                  <path
-                    d="M120,0 C150,80 280,120 290,190 C300,260 270,330 310,400"
-                    fill="none"
-                    stroke="#deb7fe"
-                    strokeWidth="8"
-                    strokeDasharray="4 4"
-                    opacity="0.6"
-                  />
-                  <path
-                    d="M300,230 C380,240 450,290 520,380"
-                    fill="none"
-                    stroke="#deb7fe"
-                    strokeWidth="6"
-                    opacity="0.5"
-                  />
-
-                  {/* Region 3: Bình Dương (Sông Bé) */}
-                  <g
-                    className="cursor-pointer transition-transform hover:scale-[1.01]"
-                    onClick={() => setSelectedRegionId(3)}
-                  >
-                    <path
-                      d="M140,20 L360,25 L340,110 L160,100 Z"
-                      fill={selectedRegionId === 3 ? '#deb7fe' : '#f4eafd'}
-                      stroke={selectedRegionId === 3 ? '#704f8d' : '#cdc3d0'}
-                      strokeWidth={selectedRegionId === 3 ? '3' : '2'}
-                      className="transition-all duration-300"
-                    />
-                    <circle cx="250" cy="65" r="7" fill="#70537b" />
-                    <text x="250" y="88" textAnchor="middle" fill="#1e1926" fontSize="11" fontWeight="bold">
-                      Bình Dương (Sông Bé)
-                    </text>
-                  </g>
-
-                  {/* Region 4: Gia Định & Phụ Cận */}
-                  <g
-                    className="cursor-pointer transition-transform hover:scale-[1.01]"
-                    onClick={() => setSelectedRegionId(4)}
-                  >
-                    <path
-                      d="M40,70 L150,110 L140,260 L30,220 Z"
-                      fill={selectedRegionId === 4 ? '#f0e49c' : '#f4eafd'}
-                      stroke={selectedRegionId === 4 ? '#704f8d' : '#cdc3d0'}
-                      strokeWidth={selectedRegionId === 4 ? '3' : '2'}
-                      className="transition-all duration-300"
-                    />
-                    <circle cx="90" cy="165" r="7" fill="#855300" />
-                    <text x="90" y="190" textAnchor="middle" fill="#1e1926" fontSize="11" fontWeight="bold">
-                      Gia Định & Phụ Cận
-                    </text>
-                  </g>
-
-                  {/* Region 1: TP.HCM Nội Đô (Center) */}
-                  <g
-                    className="cursor-pointer transition-transform hover:scale-[1.02]"
-                    onClick={() => setSelectedRegionId(1)}
-                  >
-                    <path
-                      d="M170,120 L350,125 L360,250 L200,280 L160,220 Z"
-                      fill={selectedRegionId === 1 ? '#f0e49c' : '#f4eafd'}
-                      stroke={selectedRegionId === 1 ? '#704f8d' : '#cdc3d0'}
-                      strokeWidth={selectedRegionId === 1 ? '3.5' : '2'}
-                      className="transition-all duration-300 shadow-md"
-                    />
-                    <circle cx="260" cy="190" r="10" fill="#704f8d" className="animate-pulse" />
-                    <circle cx="260" cy="190" r="4" fill="#ffffff" />
-                    <text x="260" y="218" textAnchor="middle" fill="#704f8d" fontSize="12" fontWeight="bold">
-                      TP.HCM Nội Đô Lịch Sử
-                    </text>
-                  </g>
-
-                  {/* Region 2: Bà Rịa - Vũng Tàu (Biển) */}
-                  <g
-                    className="cursor-pointer transition-transform hover:scale-[1.01]"
-                    onClick={() => setSelectedRegionId(2)}
-                  >
-                    <path
-                      d="M380,180 L560,190 L570,360 L400,320 L370,240 Z"
-                      fill={selectedRegionId === 2 ? '#deb7fe' : '#f4eafd'}
-                      stroke={selectedRegionId === 2 ? '#704f8d' : '#cdc3d0'}
-                      strokeWidth={selectedRegionId === 2 ? '3' : '2'}
-                      className="transition-all duration-300"
-                    />
-                    <circle cx="470" cy="270" r="7" fill="#fea619" />
-                    <text x="470" y="295" textAnchor="middle" fill="#1e1926" fontSize="11" fontWeight="bold">
-                      Bà Rịa - Vũng Tàu (Biển)
-                    </text>
-                  </g>
-                </svg>
-
-                {/* Hint indicator */}
-                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[#4b444e] font-['Plus_Jakarta_Sans',sans-serif] text-[11px] flex items-center gap-1 border border-[#eee4f7]">
-                  <Compass className="w-3.5 h-3.5 text-[#704f8d]" />
-                  <span>Nhấp trực tiếp vào phân vùng trên đồ họa</span>
-                </div>
-              </div>
-
-              {/* Map Legend matching Image 3 */}
-              <div className="p-3 bg-white rounded-2xl border border-[#eee4f7] flex flex-wrap items-center justify-between gap-2 text-[#4b444e] font-['Plus_Jakarta_Sans',sans-serif] text-xs">
-                <span className="font-bold text-[#1e1926]">Chú giải:</span>
-                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-[#704f8d]"></span> KV 1: Trung tâm Sài Gòn</span>
-                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-[#fea619]"></span> KV 2: Biển đảo BR-VT</span>
-                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-[#70537b]"></span> KV 3: Làng nghề Bình Dương</span>
-                <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-[#855300]"></span> KV 4: Vùng ven cổ kính</span>
-              </div>
-            </div>
-
-            {/* Dynamic Content Hub (5 Cols) */}
-            <div className="lg:col-span-5 bg-[#f9f0ff] rounded-3xl p-6 border border-[#eee4f7] shadow-sm space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="px-3 py-1 rounded-full bg-[#704f8d] text-white font-['Plus_Jakarta_Sans',sans-serif] text-xs font-bold">
-                  {regionData.tag}
-                </span>
-                <span className="text-xs text-[#4b444e] flex items-center gap-1">
-                  <Lightbulb className="w-3.5 h-3.5 text-[#fea619]" /> Dữ liệu mở rộng
-                </span>
-              </div>
-
-              <div>
-                <h3 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base sm:text-lg text-[#1e1926]">
-                  {regionData.title}
-                </h3>
-                <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] mt-1 leading-relaxed">
-                  {regionData.desc}
-                </p>
-              </div>
-
-              {/* Topic List for this Region */}
-              <div className="space-y-2.5 pt-1">
-                {regionData.topics.map((topic, idx) => (
-                  <div key={idx} className="p-3 rounded-2xl bg-white border border-[#eee4f7] flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-[#f9f0ff] text-[#704f8d] flex items-center justify-center shrink-0 mt-0.5">
-                      <BookOpen className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xs text-[#1e1926]">
-                        {topic.title}
-                      </p>
-                      <p className="font-['Be_Vietnam_Pro',sans-serif] text-[11px] text-[#4b444e] mt-0.5 leading-relaxed">
-                        {topic.detail}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-2">
-                <a
-                  href="#chude1-detail"
-                  className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-full bg-[#f0e49c] text-[#201c00] hover:bg-[#ebd978] font-['Plus_Jakarta_Sans',sans-serif] text-xs font-bold transition-all gap-2"
-                >
-                  <span>Khám phá bài học trọng tâm của vùng</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. PHẦN 3: BÀI HỌC TRỌNG TÂM LỚP 11 (CHỦ ĐỀ 1) */}
-      <section id="chude1-detail" className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8 py-14 space-y-8 scroll-mt-24">
+      {/* 3. NỘI DUNG BÀI HỌC THEO CHỦ ĐỀ ĐƯỢC CHỌN (KHỐI 11) */}
+      {selectedTopicId === 'topic-11-02' ? (
+        <Grade11Topic2Content
+          onAddPoints={onAddPoints}
+          onSaveNote={onSaveNote}
+          onShowToast={onShowToast}
+          userEmail={userEmail}
+          isCompleted={isCompleted}
+          onToggleCompleted={handleToggleCompleted}
+          onDownloadSheet={handleDownloadSheet}
+        />
+      ) : selectedTopicId === 'topic-11-01' ? (
+        <section id="chude-detail" className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8 py-14 space-y-8 scroll-mt-24">
         {/* Hero Header Chủ Đề 1 */}
         <div className="bg-[#eee4f7]/70 border border-[#e9dff2] rounded-3xl p-6 md:p-8 shadow-sm relative overflow-hidden">
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -612,13 +460,14 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
           <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#e9dff2]">
             <button
               onClick={() => setActiveLessonTab(1)}
-              className={`px-4 py-2 rounded-full font-['Plus_Jakarta_Sans',sans-serif] text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+              className={`px-4 py-2 rounded-full font-['Plus_Jakarta_Sans',sans-serif] text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeLessonTab === 1
                   ? 'bg-[#704f8d] text-white shadow-sm'
                   : 'bg-[#f9f0ff] text-[#4b444e] hover:bg-[#eee4f7]'
               }`}
             >
-              1. Tiến trình & Bối cảnh
+              <Languages className="w-3.5 h-3.5 text-[#ffd166]" />
+              <span>1. Khám phá địa điểm (Song ngữ Anh - Việt)</span>
             </button>
             <button
               onClick={() => setActiveLessonTab(2)}
@@ -653,77 +502,13 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
             </button>
           </div>
 
-          {/* TAB 1: TIẾN TRÌNH & BỐI CẢNH */}
+          {/* TAB 1: CẨM NANG KHÁM PHÁ ĐỊA ĐIỂM (BẢN SONG NGỮ ANH - VIỆT) */}
           {activeLessonTab === 1 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in duration-300">
-              {/* Left Timeline */}
-              <div className="bg-white p-6 rounded-3xl border border-[#e9dff2] shadow-sm space-y-4">
-                <h3 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base text-[#704f8d] flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
-                  Các Giai Đoạn Hình Thành Chủ Yếu
-                </h3>
-
-                <div className="relative pl-6 space-y-6 before:content-[''] before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#deb7fe]">
-                  <div className="relative">
-                    <span className="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-[#704f8d] ring-4 ring-white"></span>
-                    <h4 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xs sm:text-sm text-[#1e1926]">
-                      1865 – Đầu thế kỷ XX: Thuở bình minh Quốc ngữ
-                    </h4>
-                    <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] mt-1 leading-relaxed">
-                      Sự ra mắt của tờ Gia Định Báo và những tác phẩm truyện dịch, ký sự đời thường của Trương Vĩnh Ký giúp tiếng nói bình dân trở thành ngôn ngữ nghệ thuật.
-                    </p>
-                  </div>
-
-                  <div className="relative">
-                    <span className="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-[#fea619] ring-4 ring-white"></span>
-                    <h4 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xs sm:text-sm text-[#1e1926]">
-                      1930 – 1945: Dòng văn học yêu nước & hiện thực
-                    </h4>
-                    <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] mt-1 leading-relaxed">
-                      Ngòi bút phản biện xã hội, truyền bá tinh thần độc lập qua thơ ca bí mật, kịch nghệ và phóng sự tả thực đất Sài Gòn hoa lệ nhưng đầy trăn trở.
-                    </p>
-                  </div>
-
-                  <div className="relative">
-                    <span className="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-[#70537b] ring-4 ring-white"></span>
-                    <h4 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xs sm:text-sm text-[#1e1926]">
-                      1954 – 1975: Không gian văn hóa khẩn hoang & đô thị
-                    </h4>
-                    <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] mt-1 leading-relaxed">
-                      Sơn Nam, Bình Nguyên Lộc, Vương Hồng Sển... hoài niệm cội nguồn đất phương Nam, ký ức phong thổ, giữ gìn chất thuần khiết giữa làn sóng văn hóa ngoại lai.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Infographic Card with image from user HTML */}
-              <div className="bg-[#f9f0ff] p-6 rounded-3xl border border-[#eee4f7] shadow-sm flex flex-col justify-between space-y-4">
-                <div>
-                  <div className="w-full h-48 rounded-2xl overflow-hidden mb-4 shadow-sm">
-                    <img
-                      src={ASSETS.printingPress}
-                      alt="Nhà in Gia Định Báo Sài Gòn"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h4 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base text-[#1e1926]">
-                    Vì sao Sài Gòn là cái nôi của chữ Quốc ngữ?
-                  </h4>
-                  <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] mt-2 leading-relaxed">
-                    Do tính chất cởi mở của một thương cảng quốc tế đang mở mang, chính sách thực nghiệm chữ mẫu tự La-tinh và tinh thần thực tiễn không chịu câu nệ của cư dân Nam Bộ đã giúp chữ Quốc ngữ bén rễ sớm nhất và rực rỡ nhất tại vùng đất này.
-                  </p>
-                </div>
-
-                <div className="p-3 bg-white rounded-2xl border border-[#eee4f7] flex items-center justify-between text-[#1e1926]">
-                  <span className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xs flex items-center gap-1.5 text-[#685f26]">
-                    <Lightbulb className="w-4 h-4 text-[#fea619]" />
-                    Điểm cốt lõi kỳ thi:
-                  </span>
-                  <span className="font-['Plus_Jakarta_Sans',sans-serif] text-xs font-semibold text-[#704f8d]">
-                    Nhớ: Gia Định Báo ngày 15/4/1865
-                  </span>
-                </div>
-              </div>
+            <div className="animate-in fade-in duration-300">
+              <BilingualHandbookViewer
+                onAddPoints={onAddPoints}
+                onShowToast={onShowToast}
+              />
             </div>
           )}
 
@@ -816,6 +601,26 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
                   <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] leading-relaxed">
                     Không gian ngoại vi bình dị với vườn tược trù phú, những phong tục thờ cúng gia tiên, lễ hội đình làng được khắc họa chân thực qua ngòi bút Nam Bộ.
                   </p>
+                </div>
+              </div>
+
+              {/* Lưu ý văn hóa & không gian thực địa */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#fff8eb] border border-[#f0e49c] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-start sm:items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-2xl bg-[#fea619] text-[#201c00] flex items-center justify-center shrink-0 shadow-sm font-bold text-sm">
+                    <Compass className="w-5 h-5 text-[#201c00]" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#915800] block font-['Plus_Jakarta_Sans',sans-serif]">
+                      Không gian ký ức văn học đô thị
+                    </span>
+                    <h4 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-sm sm:text-base text-[#1e1926]">
+                      Không gian văn hóa sông nước và bản sắc thị dân phương Nam
+                    </h4>
+                    <p className="font-['Be_Vietnam_Pro',sans-serif] text-xs text-[#4b444e] mt-0.5">
+                      Sự đan xen giữa kênh rạch tự nhiên và phố chợ sầm uất đã hình thành nên nét phóng khoáng, nghĩa tình đặc trưng của con người và văn chương thành phố.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -956,6 +761,15 @@ export const Grade11View: React.FC<Grade11ViewProps> = ({
           )}
         </div>
       </section>
+      ) : (
+        <TopicLessonGenericContent
+          topic={activeTopic}
+          onAddPoints={onAddPoints}
+          onSaveNote={onSaveNote}
+          onShowToast={onShowToast}
+          userEmail={userEmail}
+        />
+      )}
     </div>
   );
 };

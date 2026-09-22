@@ -24,6 +24,9 @@ interface NoteItem {
 
 export function App() {
   const [currentTab, setCurrentTab] = useState<NavigationTab>('trang-chu');
+  const [selectedGrade10TopicId, setSelectedGrade10TopicId] = useState<string>('topic-10-01');
+  const [selectedGrade11TopicId, setSelectedGrade11TopicId] = useState<string>('topic-11-01');
+  const [selectedGrade12TopicId, setSelectedGrade12TopicId] = useState<string>('topic-12-01');
 
   // Student Profile State with LocalStorage
   const [userPoints, setUserPoints] = useState<number>(() => {
@@ -149,6 +152,19 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavigateToGradeWithTopic = (tab: NavigationTab, topicId?: string) => {
+    if (topicId) {
+      if (tab === 'khoi-10') {
+        setSelectedGrade10TopicId(topicId);
+      } else if (tab === 'khoi-11') {
+        setSelectedGrade11TopicId(topicId);
+      } else if (tab === 'khoi-12') {
+        setSelectedGrade12TopicId(topicId);
+      }
+    }
+    handleSelectTab(tab);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#fef7ff] text-[#1e1926] font-['Be_Vietnam_Pro',sans-serif] selection:bg-[#deb7fe] selection:text-[#2a0946]">
       {/* Universal Navigation Header */}
@@ -174,8 +190,8 @@ export function App() {
           >
             {currentTab === 'trang-chu' && (
               <HomeView
-                onNavigateToGrade={handleSelectTab}
-                onNavigateToGrade11={() => handleSelectTab('khoi-11')}
+                onNavigateToGrade={handleNavigateToGradeWithTopic}
+                onNavigateToGrade11={(topicId) => handleNavigateToGradeWithTopic('khoi-11', topicId)}
                 onNavigateToMap={() => handleSelectTab('ban-do-tuong-tac')}
                 onAddPoints={handleAddPoints}
                 onShowToast={showToast}
@@ -185,6 +201,8 @@ export function App() {
 
             {currentTab === 'khoi-11' && (
               <Grade11View
+                activeTopicId={selectedGrade11TopicId}
+                onSelectTopicId={setSelectedGrade11TopicId}
                 onAddPoints={handleAddPoints}
                 onSaveNote={handleSaveNote}
                 onShowToast={showToast}
@@ -197,16 +215,26 @@ export function App() {
             {currentTab === 'khoi-10' && (
               <GradeOverviewView
                 grade="khoi-10"
+                activeTopicId={selectedGrade10TopicId}
+                onSelectTopicId={setSelectedGrade10TopicId}
                 onNavigateToGrade11={() => handleSelectTab('khoi-11')}
+                onAddPoints={handleAddPoints}
+                onSaveNote={handleSaveNote}
                 onShowToast={showToast}
+                userEmail={userEmail}
               />
             )}
 
             {currentTab === 'khoi-12' && (
               <GradeOverviewView
                 grade="khoi-12"
+                activeTopicId={selectedGrade12TopicId}
+                onSelectTopicId={setSelectedGrade12TopicId}
                 onNavigateToGrade11={() => handleSelectTab('khoi-11')}
+                onAddPoints={handleAddPoints}
+                onSaveNote={handleSaveNote}
                 onShowToast={showToast}
+                userEmail={userEmail}
               />
             )}
 

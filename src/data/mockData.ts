@@ -34,8 +34,10 @@ export const GRADE_11_TOPICS: TopicItem[] = [
     duration: "3 Tiết",
     fieldTrip: "1 Trải nghiệm",
     destination: "Tuyến buýt sông Saigon Waterbus & Bến Bạch Đằng",
-    status: "locked",
-    period: "Năm học 2026 - 2027"
+    status: "active",
+    period: "Sẵn sàng học",
+    videoUrl: "https://youtu.be/FpREU6ScV5U?si=HYVi3pXdOQUMv385",
+    videoTitle: "Khám phá địa điểm và những nét độc đáo ở Chợ lớn - Sài Gòn"
   },
   {
     id: "topic-11-03",
@@ -122,40 +124,92 @@ export const GRADE_10_TOPICS: TopicItem[] = [
     id: "topic-10-01",
     code: "Chủ đề 01",
     grade: 10,
-    title: "Vùng đất Sài Gòn – Gia Định thời tiền – sơ sử",
-    shortDesc: "Dấu tích cư dân cổ bên lưu vực sông Đồng Nai, văn hóa Óc Eo và khảo cổ học Cần Giờ.",
-    learningGoal: "Nhận biết các nền văn hóa khảo cổ học Giồng Cá Vồ, Bến Đò và các tầng di tích tiền sử TP.HCM.",
-    duration: "3 Tiết",
-    fieldTrip: "1 Thực địa",
-    destination: "Khu di chỉ Khảo cổ Cần Giờ",
-    status: "completed",
-    period: "Năm học 2026 - 2027"
+    title: "Biến đổi khí hậu và phòng, chống thiên tai ở TPHCM",
+    shortDesc: "Hiện trạng ngập úng đô thị, triều cường, xâm nhập mặn và các giải pháp thích ứng biến đổi khí hậu tại TP.HCM.",
+    learningGoal: "Nhận diện các biểu hiện và tác động của biến đổi khí hậu đến hệ sinh thái và đời sống cư dân TP.HCM; rèn luyện kĩ năng phòng chống lụt bão, giảm nhẹ thiên tai.",
+    duration: "4 Tiết",
+    fieldTrip: "1 Khảo sát",
+    destination: "Công trình Cống ngăn triều Bến Nghé & Trạm Khí tượng Thủy văn Nam Bộ",
+    status: "active",
+    period: "Học kỳ I"
   },
   {
     id: "topic-10-02",
     code: "Chủ đề 02",
     grade: 10,
-    title: "Quá trình khai hoang, xác lập chủ quyền phương Nam",
-    shortDesc: "Dấu ấn Lễ Thành Hầu Nguyễn Hữu Cảnh và công cuộc định danh vùng đất 1698.",
-    learningGoal: "Hiểu rõ bối cảnh thành lập phủ Gia Định, chính sách khuyến khích khẩn hoang và lập làng xóm của chúa Nguyễn.",
+    title: "Đạo lí \"Uống nước nhớ nguồn\" qua các nghi lễ dân gian ở TPHCM",
+    shortDesc: "Nghi lễ cúng Kỳ Yên tại các đình làng Nam Bộ, Lễ Giỗ Tổ Hùng Vương, tri ân tiền hiền khai hoang mở cõi Gia Định.",
+    learningGoal: "Khám phá các giá trị nhân văn sâu sắc của đạo lí tri ân cội nguồn; phân tích ý nghĩa các nghi thức cúng tế truyền thống trong đời sống tinh thần cư dân thành phố.",
     duration: "4 Tiết",
-    fieldTrip: "1 Thực địa",
-    destination: "Đền thờ Lễ Thành Hầu Nguyễn Hữu Cảnh",
+    fieldTrip: "1 Trải nghiệm",
+    destination: "Đình Thông Tây Hội (Gò Vấp) & Khu tưởng niệm các Vua Hùng (TP. Thủ Đức)",
     status: "active",
-    period: "Năm học 2026 - 2027"
+    period: "Học kỳ I"
   },
   {
     id: "topic-10-03",
     code: "Chủ đề 03",
     grade: 10,
-    title: "Địa lý tự nhiên và hệ sinh thái rừng ngập mặn Cần Giờ",
-    shortDesc: "Khu dự trữ sinh quyển thế giới đầu tiên của Việt Nam – Lá phổi xanh thành phố.",
-    learningGoal: "Khám phá địa hình sông ngòi chằng chịt, thảm thực vật đước mắm và giải pháp thích ứng biến đổi khí hậu.",
+    title: "Bảo tồn và phát huy các giá trị di sản văn hóa TPHCM",
+    shortDesc: "Hệ thống di tích lịch sử - văn hóa, kiến trúc nghệ thuật tiêu biểu và di sản văn hóa phi vật thể của TP.HCM.",
+    learningGoal: "Hệ thống hóa các di sản cấp quốc gia và thành phố; đề xuất giải pháp số hóa di sản và trách nhiệm của thế hệ trẻ trong việc giữ gìn hồn cốt đô thị.",
     duration: "4 Tiết",
-    fieldTrip: "1 Sinh thái",
-    destination: "Khu bảo tồn Sinh quyển Rừng sác Cần Giờ",
-    status: "locked",
-    period: "Năm học 2026 - 2027"
+    fieldTrip: "2 Thực địa",
+    destination: "Bảo tàng Lịch sử TP.HCM & Di tích Trụ sở HĐND - UBND Thành phố",
+    status: "active",
+    period: "Học kỳ I"
+  },
+  {
+    id: "topic-10-04",
+    code: "Chủ đề 04",
+    grade: 10,
+    title: "Văn học dân gian TPHCM",
+    shortDesc: "Kho tàng ca dao, dân ca, hò, vè, truyện cổ tích và truyền thuyết gắn liền với vùng đất Gia Định - Sài Gòn.",
+    learningGoal: "Cảm nhận vẻ đẹp mộc mạc, hào sảng, nghĩa tình của phương ngữ và tâm hồn người Sài Gòn qua các điệu hò sông nước, câu đối và giai thoại dân gian.",
+    duration: "3 Tiết",
+    fieldTrip: "1 Sưu tầm",
+    destination: "Không gian Văn hóa Dân gian & Thư viện Khoa học Tổng hợp TP.HCM",
+    status: "active",
+    period: "Học kỳ II"
+  },
+  {
+    id: "topic-10-05",
+    code: "Chủ đề 05",
+    grade: 10,
+    title: "Chân dung nhân vật nghệ thuật ở TPHCM",
+    shortDesc: "Cuộc đời, phong cách sáng tác và cống hiến của các văn nghệ sĩ lớn trong sân khấu cải lương, kịch nói, mỹ thuật và âm nhạc Sài Gòn - TP.HCM.",
+    learningGoal: "Khắc họa chân dung các tên tuổi gạo cội (NSND Phùng Há, NSND Năm Châu, Soạn giả Viễn Châu, Họa sĩ Lê Thần...) và sức ảnh hưởng đối với nền nghệ thuật phương Nam.",
+    duration: "3 Tiết",
+    fieldTrip: "1 Thưởng thức",
+    destination: "Khu dưỡng lão Nghệ sĩ & Nhà hát Cải lương Trần Hữu Trang",
+    status: "active",
+    period: "Học kỳ II"
+  },
+  {
+    id: "topic-10-06",
+    code: "Chủ đề 06",
+    grade: 10,
+    title: "Ô nhiễm môi trường ở TPHCM",
+    shortDesc: "Thực trạng ô nhiễm không khí, nguồn nước sông ngòi, kênh rạch và giải pháp quản lý, phân loại rác thải sinh hoạt đô thị.",
+    learningGoal: "Phân tích nguyên nhân, hậu quả của ô nhiễm môi trường tại các khu dân cư và KCN; xây dựng kế hoạch hành động giảm rác thải nhựa trong trường học.",
+    duration: "3 Tiết",
+    fieldTrip: "1 Nghiên cứu",
+    destination: "Tuyến kênh Nhiêu Lộc - Thị Nghè & Khu Liên hợp xử lý chất thải Đa Phước",
+    status: "active",
+    period: "Học kỳ II"
+  },
+  {
+    id: "topic-10-07",
+    code: "Chủ đề 07",
+    grade: 10,
+    title: "Định hướng nghề nghiệp",
+    shortDesc: "Xu hướng thị trường lao động TP.HCM thời kỳ kinh tế số, khám phá năng lực bản thân và lộ trình chọn ngành, chọn nghề phù hợp.",
+    learningGoal: "Tự đánh giá thiên hướng nghề nghiệp qua các bài trắc nghiệm chuẩn hóa; tìm hiểu các ngành nghề trọng điểm của thành phố trong kỷ nguyên cách mạng 4.0.",
+    duration: "4 Tiết",
+    fieldTrip: "1 Tọa đàm",
+    destination: "Trung tâm Dự báo Nhu cầu Nhân lực & Ngày hội Hướng nghiệp THPT",
+    status: "active",
+    period: "Dự án cuối năm"
   }
 ];
 
@@ -164,27 +218,105 @@ export const GRADE_12_TOPICS: TopicItem[] = [
     id: "topic-12-01",
     code: "Chủ đề 01",
     grade: 12,
-    title: "TP. Hồ Chí Minh: Trung tâm kinh tế - tài chính đa giác quan",
-    shortDesc: "Mạng lưới thương mại quốc tế, dịch vụ hiện đại và quy hoạch đại đô thị sông nước.",
-    learningGoal: "Phân tích cơ cấu kinh tế dịch vụ, chuyển dịch số hóa và vị thế đầu tàu kinh tế của vùng Đông Nam Bộ.",
+    title: "Lao động và làm việc ở TPHCM",
+    shortDesc: "Cơ cấu nguồn nhân lực, văn hóa doanh nghiệp hiện đại, tác phong công nghiệp và quyền lợi, nghĩa vụ của người lao động tại TP.HCM.",
+    learningGoal: "Phân tích nhu cầu thị trường việc làm chất lượng cao; chuẩn bị hành trang kỹ năng mềm, tư duy hội nhập và tác phong lao động kỷ luật cho học sinh sau THPT.",
     duration: "4 Tiết",
-    fieldTrip: "1 Thực địa",
-    destination: "Trung tâm Đổi mới Sáng tạo Quốc gia & Cảng Cát Lái",
+    fieldTrip: "1 Thực tế",
+    destination: "Khu Chế xuất Tân Thuận & Trung tâm Dịch vụ Việc làm TP.HCM",
     status: "active",
-    period: "Năm học 2026 - 2027"
+    period: "Học kỳ I"
   },
   {
     id: "topic-12-02",
     code: "Chủ đề 02",
     grade: 12,
-    title: "Đô thị xanh, thông minh và bài toán phát triển bền vững",
-    shortDesc: "Bảo vệ môi trường không khí, xử lý rác thải và giao thông công cộng metro xanh.",
-    learningGoal: "Đề xuất giải pháp tuổi trẻ bảo vệ cảnh quan đô thị, tham gia giao thông xanh và xây dựng lối sống xanh.",
-    duration: "3 Tiết",
+    title: "Phát triển giao thông vận tải ở TPHCM",
+    shortDesc: "Hệ thống hạ tầng giao thông đa phương thức: Tuyến Metro, đường vành đai 3 - 4, cao tốc liên vùng, cảng biển nước sâu và hàng không quốc tế.",
+    learningGoal: "Đánh giá vai trò của giao thông huyết mạch kết nối TP.HCM với vùng kinh tế trọng điểm phía Nam; tìm hiểu các dự án chuyển đổi phương tiện giao thông xanh.",
+    duration: "4 Tiết",
     fieldTrip: "1 Trải nghiệm",
-    destination: "Tuyến Metro số 1 Bến Thành - Suối Tiên",
-    status: "locked",
-    period: "Năm học 2026 - 2027"
+    destination: "Tuyến Metro số 1 Bến Thành - Suối Tiên & Cảng Quốc tế Cát Lái",
+    status: "active",
+    period: "Học kỳ I"
+  },
+  {
+    id: "topic-12-03",
+    code: "Chủ đề 03",
+    grade: 12,
+    title: "Thành phố Hồ Chí Minh trong công cuộc đổi mới từ năm 1991 đến nay",
+    shortDesc: "Hành trình bứt phá kinh tế - xã hội, các quyết sách năng động sáng tạo đưa thành phố trở thành đầu tàu kinh tế, trung tâm đổi mới sáng tạo cả nước.",
+    learningGoal: "Khái quát các thành tựu vượt bậc về kinh tế, đô thị hóa, văn hóa và đời sống nhân dân từ 1991; khơi dậy niềm tự hào và khát vọng cống hiến xây dựng thành phố văn minh, hiện đại, nghĩa tình.",
+    duration: "4 Tiết",
+    fieldTrip: "1 Thực địa",
+    destination: "Bảo tàng TP.HCM & Khu Đô thị mới Thủ Thiêm",
+    status: "active",
+    period: "Học kỳ I"
+  },
+  {
+    id: "topic-12-04",
+    code: "Chủ đề 04",
+    grade: 12,
+    title: "Văn học Thành phố Hồ Chí Minh từ năm 1975",
+    shortDesc: "Diện mạo thi ca, văn xuôi, ký sự và các trào lưu sáng tác phản ánh nhịp sống thành phố thời kỳ hòa bình, hàn gắn vết thương chiến tranh và phát triển hiện đại.",
+    learningGoal: "Phân tích tác phẩm tiêu biểu của các tác giả Nguyễn Duy, Lê Văn Nghĩa, Nguyễn Nhật Ánh, Trần Hoài Dương...; nhận diện vẻ đẹp tâm hồn con người thành phố qua văn chương.",
+    duration: "4 Tiết",
+    fieldTrip: "1 Tọa đàm",
+    destination: "Đường sách Nguyễn Văn Bình & Hội Nhà văn TP.HCM",
+    status: "active",
+    period: "Học kỳ I"
+  },
+  {
+    id: "topic-12-05",
+    code: "Chủ đề 05",
+    grade: 12,
+    title: "Một số loại nghệ thuật truyền thống ở TPHCM",
+    shortDesc: "Nghệ thuật Đờn ca tài tử Nam Bộ (Di sản UNESCO), Sân khấu Cải lương, Hát bội, Múa lân sư rồng Chợ Lớn và Nhạc cụ dân tộc.",
+    learningGoal: "Nhận diện giá trị nghệ thuật, lịch sử hình thành và thực trạng bảo tồn các bộ môn nghệ thuật cổ truyền; thực hành cảm thụ và lan tỏa tình yêu nghệ thuật dân tộc.",
+    duration: "4 Tiết",
+    fieldTrip: "1 Thưởng thức",
+    destination: "Nhà hát Nghệ thuật Hát Bội TP.HCM & Câu lạc bộ Đờn ca tài tử",
+    status: "active",
+    period: "Học kỳ II"
+  },
+  {
+    id: "topic-12-06",
+    code: "Chủ đề 06",
+    grade: 12,
+    title: "Mĩ thuật ứng dụng hiện đại ở TPHCM",
+    shortDesc: "Thiết kế đồ họa, thời trang, kiến trúc cảnh quan đô thị, nghệ thuật công cộng (Public Art) và tranh tường bích họa tại TP.HCM.",
+    learningGoal: "Tìm hiểu các lĩnh vực mỹ thuật ứng dụng phục vụ đời sống đô thị; phát huy tư duy thẩm mỹ thị giác và sáng tạo sản phẩm mỹ thuật mang dấu ấn văn hóa Sài Gòn.",
+    duration: "3 Tiết",
+    fieldTrip: "1 Thực tế",
+    destination: "Bảo tàng Mỹ thuật TP.HCM & Các không gian nghệ thuật đương đại",
+    status: "active",
+    period: "Học kỳ II"
+  },
+  {
+    id: "topic-12-07",
+    code: "Chủ đề 07",
+    grade: 12,
+    title: "Vai trò của lễ hội truyền thống tại TPHCM, trong việc duy trì, phát huy các giá trị văn hóa dân tộc",
+    shortDesc: "Lễ hội Nghinh Ông Cần Giờ, Lễ hội Chùa Bà Thiên Hậu, Lễ hội Nguyên Tiêu, Lễ giỗ Đức Tả quân Lê Văn Duyệt và các lễ hội văn hóa đa dạng.",
+    learningGoal: "Khẳng định vai trò của lễ hội trong việc cố kết cộng đồng, trao truyền bản sắc văn hóa dân tộc qua nhiều thế hệ; nâng cao ý thức giữ gìn nét đẹp văn hóa lễ hội văn minh.",
+    duration: "4 Tiết",
+    fieldTrip: "1 Trải nghiệm",
+    destination: "Lăng Tả quân Lê Văn Duyệt (Lăng Ông Bà Chiểu) & Chùa Bà Thiên Hậu Chợ Lớn",
+    status: "active",
+    period: "Học kỳ II"
+  },
+  {
+    id: "topic-12-08",
+    code: "Chủ đề 08",
+    grade: 12,
+    title: "Ý tưởng khởi nghiệp cho học sinh tại TPHCM",
+    shortDesc: "Xây dựng dự án khởi nghiệp sáng tạo, ứng dụng công nghệ số giải quyết các vấn đề đô thị (môi trường, giáo dục, văn hóa, du lịch di sản) cho học sinh THPT.",
+    learningGoal: "Hình thành tư duy khởi nghiệp (Startup Mindset); thực hành lập kế hoạch dự án kinh doanh / dự án xã hội và thuyết trình bảo vệ ý tưởng trước ban giám khảo.",
+    duration: "4 Tiết",
+    fieldTrip: "1 Tranh tài",
+    destination: "Không gian Khởi nghiệp Đổi mới Sáng tạo TP.HCM (SIHUB) & Vườn ươm Doanh nghiệp",
+    status: "active",
+    period: "Dự án tốt nghiệp"
   }
 ];
 
@@ -400,6 +532,57 @@ export const MINI_QUIZ_GRADE_11: QuizQuestion[] = [
     ],
     correctAnswer: "A",
     explanation: "Văn học Nam Bộ mang đậm tính phóng khoáng, sử dụng tự nhiên khẩu ngữ bình dân, tạo cảm giác gần gũi, chân thành và tràn đầy hơi thở cuộc sống."
+  }
+];
+
+export const MINI_QUIZ_GRADE_11_TOPIC_2: QuizQuestion[] = [
+  {
+    id: 1,
+    week: "Ôn tập Chủ đề 2",
+    questionNumber: "Câu 1",
+    points: 20,
+    subject: "Chủ đề 2: Phát triển du lịch ở TPHCM",
+    question: "Tuyến giao thông công cộng kết hợp du lịch ngắm cảnh sông nước đặc trưng mới phát triển tại TP.HCM là gì?",
+    options: [
+      { id: "A", text: "Tuyến buýt sông Saigon Waterbus" },
+      { id: "B", text: "Tuyến cáp treo Cần Giờ" },
+      { id: "C", text: "Tàu điện một ray Monorail" },
+      { id: "D", text: "Xe ngựa truyền thống" }
+    ],
+    correctAnswer: "A",
+    explanation: "Saigon Waterbus kết nối từ bến Bạch Đằng qua các ga tàu thủy dọc sông Sài Gòn, mở ra góc nhìn đô thị sông nước độc đáo và thu hút đông đảo du khách."
+  },
+  {
+    id: 2,
+    week: "Ôn tập Chủ đề 2",
+    questionNumber: "Câu 2",
+    points: 20,
+    subject: "Chủ đề 2: Phát triển du lịch ở TPHCM",
+    question: "Khu di sản văn hóa và ẩm thực nổi tiếng nào tại TP.HCM nổi bật với các hội quán cổ, phố thuốc bắc và chợ Bình Tây?",
+    options: [
+      { id: "A", text: "Phố cổ Hội An" },
+      { id: "B", text: "Không gian văn hóa Chợ Lớn (Quận 5 - Quận 6)" },
+      { id: "C", text: "Bán đảo Thanh Đa" },
+      { id: "D", text: "Khu công nghệ cao TP.HCM" }
+    ],
+    correctAnswer: "B",
+    explanation: "Chợ Lớn (Sài Gòn xưa) lưu giữ di sản kiến trúc hội quán, chùa miếu cổ kính và văn hóa ẩm thực truyền thống phong phú giao thoa Việt - Hoa."
+  },
+  {
+    id: 3,
+    week: "Ôn tập Chủ đề 2",
+    questionNumber: "Câu 3",
+    points: 20,
+    subject: "Chủ đề 2: Phát triển du lịch ở TPHCM",
+    question: "Điểm đến sinh thái nào tại TP.HCM được UNESCO công nhận là Khu dự trữ sinh quyển thế giới?",
+    options: [
+      { id: "A", text: "Công viên Tao Đàn" },
+      { id: "B", text: "Rừng ngập mặn Cần Giờ" },
+      { id: "C", text: "Địa đạo Củ Chi" },
+      { id: "D", text: "Khu du lịch Suối Tiên" }
+    ],
+    correctAnswer: "B",
+    explanation: "Rừng ngập mặn Cần Giờ được mệnh danh là 'lá phổi xanh' của TP.HCM, là Khu dự trữ sinh quyển thế giới đầu tiên tại Việt Nam được UNESCO công nhận năm 2000."
   }
 ];
 

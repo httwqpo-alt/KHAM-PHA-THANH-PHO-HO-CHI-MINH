@@ -44,8 +44,21 @@ export const Header: React.FC<HeaderProps> = ({
     { title: 'Bạch Dinh (Villa Blanche) Vũng Tàu', tab: 'ban-do-tuong-tac' as NavigationTab, grade: 'Bản đồ' },
     { title: 'Bản đồ di sản TP.HCM & Vành đai đô thị', tab: 'ban-do-tuong-tac' as NavigationTab, grade: 'Bản đồ' },
     { title: 'Nghệ thuật Đờn ca tài tử & Cải lương', tab: 'khoi-11' as NavigationTab, grade: 'Khối 11' },
-    { title: 'Địa hình, sông ngòi & Hệ sinh thái Cần Giờ', tab: 'khoi-10' as NavigationTab, grade: 'Khối 10' },
-    { title: 'Đô thị Sáng tạo & Trung tâm Tài chính', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' }
+    { title: 'Biến đổi khí hậu và phòng, chống thiên tai ở TPHCM', tab: 'khoi-10' as NavigationTab, grade: 'Khối 10' },
+    { title: 'Đạo lí "Uống nước nhớ nguồn" qua các nghi lễ dân gian ở TPHCM', tab: 'khoi-10' as NavigationTab, grade: 'Khối 10' },
+    { title: 'Bảo tồn và phát huy các giá trị di sản văn hóa TPHCM', tab: 'khoi-10' as NavigationTab, grade: 'Khối 10' },
+    { title: 'Văn học dân gian TPHCM', tab: 'khoi-10' as NavigationTab, grade: 'Khối 10' },
+    { title: 'Chân dung nhân vật nghệ thuật ở TPHCM', tab: 'khoi-10' as NavigationTab, grade: 'Khối 10' },
+    { title: 'Ô nhiễm môi trường ở TPHCM', tab: 'khoi-10' as NavigationTab, grade: 'Khối 10' },
+    { title: 'Định hướng nghề nghiệp', tab: 'khoi-10' as NavigationTab, grade: 'Khối 10' },
+    { title: 'Lao động và làm việc ở TPHCM', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' },
+    { title: 'Phát triển giao thông vận tải ở TPHCM', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' },
+    { title: 'Thành phố Hồ Chí Minh trong công cuộc đổi mới từ năm 1991 đến nay', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' },
+    { title: 'Văn học Thành phố Hồ Chí Minh từ năm 1975', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' },
+    { title: 'Một số loại nghệ thuật truyền thống ở TPHCM', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' },
+    { title: 'Mĩ thuật ứng dụng hiện đại ở TPHCM', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' },
+    { title: 'Vai trò của lễ hội truyền thống tại TPHCM, trong việc duy trì, phát huy các giá trị văn hóa dân tộc', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' },
+    { title: 'Ý tưởng khởi nghiệp cho học sinh tại TPHCM', tab: 'khoi-12' as NavigationTab, grade: 'Khối 12' }
   ];
 
   const filteredResults = searchQuery.trim() === '' ? [] : searchableTopics.filter(item => 
